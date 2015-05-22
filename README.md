@@ -1,6 +1,15 @@
 frontend-nanodegree-arcade-game
 ===============================
+## Keyboard Control
+Use Up, Right, Down, Left to control the player move.
 
-Students should use this rubric: https://www.udacity.com/course/viewer#!/c-ud015/l-3072058665/m-3072588797
+## Player select
+Move the player to the character to select.
 
-for self-checking their submission.
+## Score
+1. Reach the river get 100.
+2. Crash a bug minus 10.
+3. Collect gems get extra score:
+	- Blue: 500
+	- Green: 2000
+	- Orange: 5000
