@@ -8,9 +8,7 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-/** Enemies our player must avoid.
- * @constructs
- */
+/** Enemies our player must avoid. */
 var Enemy = function() {
     this.init();
 };
@@ -81,9 +79,7 @@ Enemy.prototype.collisionHandle = function() {
     }
 }
 
-/** Player of the game.
- * @constructs
- */
+/** Player of the game. */
 var Player = function() {
     this.init();
 };
@@ -174,9 +170,7 @@ Player.prototype.select = function() {
     }
 }
 
-/** Score of the game.
- * @constructs
- */
+/** Score of the game. */
 var Score = function() {
     this.init();
 };
@@ -226,9 +220,7 @@ Score.prototype.bonus = function(bonus) {
     this.render();
 }
 
-/** Collectables player can get bonus.
- * @constructs
- */
+/** Collectables player can get bonus. */
 var Collectable = function() {
     this.reset();
 };
