@@ -1,34 +1,42 @@
-// helper functions
+/**
+ * Generate random int in range[min, max].
+ * @param {int} min - the smallest of the random number to generate.
+ * @param {int} max - the biggest of the random number to genertate.
+ * @return {int} an int within min ~ max.
+ */
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-// Enemies our player must avoid
+/** Enemies our player must avoid.
+ * @constructs
+ */
 var Enemy = function() {
-    // Variables applied to each of our instances go here,
-    // we've provided one for you to get started
-
-    // The image/sprite for our enemies, this uses
-    // a helper we've provided to easily load images
     this.init();
 };
 
-// Update the enemy's position, required method for game
-// Parameter: dt, a time delta between ticks
+/**
+ * Update the enemy's position.
+ * @method
+ * @param {float} dt - a time delta between ticks.
+ */
 Enemy.prototype.update = function(dt) {
-    // You should multiply any movement by the dt parameter
-    // which will ensure the game runs at the same speed for
-    // all computers.
+    // Multiply move speed by the dt parameter.
+    // to ensure the game runs at the same speed for all computers.
     this.x = (this.x <= this.boundaryX) ? (this.x + this.moveSpeed * dt):(this.initLocation.x);
 }
 
-// Draw the enemy on the screen, required method for game
+/** Draw the enemy on the screen.
+ * @method
+ */
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     this.collisionHandle();
 }
 
-// Initialize enemy
+/** Initialize enemy.
+ * @method
+ */
 Enemy.prototype.init = function() {
     this.sprite = 'images/enemy-bug.png';
     this.boundaryX = 505;
@@ -37,17 +45,28 @@ Enemy.prototype.init = function() {
     this.x = this.initLocation.x;
     this.y = this.initLocation.y;
 
+    /** Generate random move speed.
+     * @function
+     * @ruturns {int} random move speed of (300, 600, 900).
+     */
     function randomSpeed() {
         var speedRange = [300, 300, 600, 600, 600, 900];
         return speedRange[getRandomInt(0, speedRange.length - 1)];
     }
 
+    /** Generate random Y location.
+     * @function
+     * @ruturns {int} random Y locaiton of (60, 143, 226, 309).
+     */
     function randomInitLocation() {
         var locationRange = [60, 143, 226, 309];
         return locationRange[getRandomInt(0, locationRange.length - 1)];
     }
 }
 
+/** Detect collision between enemy and player.
+ * @method
+ */
 Enemy.prototype.collisionHandle = function() {
     var collisionDist = 30;
     if (Math.abs(this.y - player.y) <= collisionDist && Math.abs(this.x - player.x) <= collisionDist ) {
@@ -56,13 +75,18 @@ Enemy.prototype.collisionHandle = function() {
     }
 }
 
-// Now write your own player class
-// This class requires an update(), render() and
-// a handleInput() method.
+/** Player of the game.
+ * @constructs
+ */
 var Player = function() {
     this.init();
 };
 
+/** Update the player position, move controled by keyboard.
+ * @method
+ * @param {int} x - x position of player.
+ * @param {int} y - y position of player.
+ */
 Player.prototype.update = function(x, y) {
     if (x !== undefined && y !== undefined) {
         if ((this.x + x) >= 0 && (this.x + x) <= this.boundaryX) {this.x += x;}
@@ -76,11 +100,18 @@ Player.prototype.update = function(x, y) {
     }
 }
 
+/** Draw player on the screen.
+ * @method
+ */
 Player.prototype.render = function() {
     this.select();
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 }
 
+/** Handle keyboard control of the player.
+ * @method
+ * @param {string} key - keyboard input.
+ */
 Player.prototype.handleInput = function(key) {
     switch (key) {
         case "up": this.update(0, -this.moveY); break;
@@ -90,6 +121,9 @@ Player.prototype.handleInput = function(key) {
     }
 }
 
+/** Initialize player.
+ * @method
+ */
 Player.prototype.init = function() {
     this.sprite = 'images/char-boy.png';
     this.moveX = 101;
@@ -100,12 +134,18 @@ Player.prototype.init = function() {
     this.reset();
 }
 
+/** Reset player to start place.
+ * @method
+ */
 Player.prototype.reset = function() {
     var initLocation = {'x': 202, 'y': 400};
     this.x = initLocation.x;
     this.y = initLocation.y;
 }
 
+/** Select different characters of player.
+ * @method
+ */
 Player.prototype.select = function() {
     characters = ['images/char-boy.png',
         'images/char-cat-girl.png',
@@ -128,11 +168,16 @@ Player.prototype.select = function() {
     }
 }
 
-// Score
+/** Score of the game.
+ * @constructs
+ */
 var Score = function() {
     this.init();
 };
 
+/** Initialize score.
+ * @method
+ */
 Score.prototype.init = function() {
     this.score = 0;
     this.scoreBoardHeader = document.createElement('h1');
@@ -143,30 +188,48 @@ Score.prototype.init = function() {
     this.render();
 }
 
+/** Add 100 to score when player wins.
+ * @method
+ */
 Score.prototype.win = function() {
     this.score += 100;
     this.render();
 }
 
+/** Minus 10 to score when player lose.
+ * @method
+ */
 Score.prototype.lose = function() {
     this.score -= 10;
     this.render();
 }
 
+/** Draw score on the screen.
+ * @method
+ */
 Score.prototype.render = function() {
     this.scoreBoard.innerHTML = this.score;
 }
 
+/** Add bonus point to score when player lose.
+ * @method
+ * @param {int} bonus - extra point to add.
+ */
 Score.prototype.bonus = function(bonus) {
     this.score += bonus;
     this.render();
 }
 
-// Collectables player can get bonus
+/** Collectables player can get bonus.
+ * @constructs
+ */
 var Collectable = function() {
     this.reset();
 };
 
+/** Reset collectable type and location.
+ * @method
+ */
 Collectable.prototype.reset = function() {
     var location = randomLocation();
     this.x = location.x;
@@ -175,6 +238,10 @@ Collectable.prototype.reset = function() {
     this.gem = randomGem();
     this.sprite = this.gem.gemColor;
 
+    /** Generate random gem.
+     * @function
+     * @returns {object} - a gem with specific color and score.
+     */
     function randomGem() {
         var gemColorList = ["images/Gem-Blue.png","images/Gem-Green.png", "images/Gem-Orange.png"];
         var gemScore = [500, 2000, 5000];
@@ -183,6 +250,10 @@ Collectable.prototype.reset = function() {
         return {"gemColor": gemColor, "score": score};
     }
 
+    /** Generate random location.
+     * @function
+     * @returns {object} - random x and y location.
+     */
     function randomLocation() {
         var locationRangeX = [0, 101, 202, 303, 404];
         var locationRangeY = [60, 143, 226, 309];
@@ -192,6 +263,9 @@ Collectable.prototype.reset = function() {
     }
 }
 
+/** Draw collectable on the screen.
+ * @method
+ */
 Collectable.prototype.render = function() {
     this.collisionHandle();
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
@@ -205,9 +279,7 @@ Collectable.prototype.collisionHandle = function() {
     }
 }
 
-// Now instantiate your objects.
-// Place all enemy objects in an array called allEnemies
-// Place the player object in a variable called player
+// Instantiate objects.
 var allEnemies = [];
 var enemyNum = 5;
 for (var i = 0; i < enemyNum; i++) {
@@ -217,8 +289,7 @@ var player = new Player();
 var score = new Score();
 var collectable = new Collectable();
 
-// This listens for key presses and sends the keys to your
-// Player.handleInput() method. You don't need to modify this.
+// This listens for key presses and sends the keys to Player.handleInput() method.
 document.addEventListener('keyup', function(e) {
     var allowedKeys = {
         37: 'left',
