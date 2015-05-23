@@ -1,5 +1,10 @@
 frontend-nanodegree-arcade-game
 ===============================
+## Getting started
+1. Open index.html.
+2. Use keyboard arrow keys to control the player.
+3. Reach the river and avoid bugs. Enjoy!
+
 ## Keyboard Control
 Use Up, Right, Down, Left to control the player move.
 
