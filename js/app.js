@@ -56,7 +56,7 @@ Enemy.prototype.init = function() {
      * @ruturns {int} random move speed of (300, 600, 900).
      */
     function randomSpeed() {
-        var speedRange = [300, 300, 600, 600, 600, 900];
+        var speedRange = [300, 300, 300, 600, 600, 900];
         return speedRange[getRandomInt(0, speedRange.length - 1)];
     }
 
