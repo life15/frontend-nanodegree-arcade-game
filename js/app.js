@@ -23,7 +23,13 @@ var Enemy = function() {
 Enemy.prototype.update = function(dt) {
     // Multiply move speed by the dt parameter.
     // to ensure the game runs at the same speed for all computers.
-    this.x = (this.x <= this.boundaryX) ? (this.x + this.moveSpeed * dt):(this.initLocation.x);
+    // Reset when enmey across the screen.
+    if (this.x <= this.boundaryX) {
+        this.x += this.moveSpeed * dt;
+    }
+    else {
+        this.init();
+    }
 }
 
 /** Draw the enemy on the screen.
