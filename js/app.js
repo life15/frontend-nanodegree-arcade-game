@@ -28,7 +28,7 @@ Enemy.prototype.update = function(dt) {
     else {
         this.init();
     }
-}
+};
 
 /** Draw the enemy on the screen.
  * @method
@@ -36,7 +36,7 @@ Enemy.prototype.update = function(dt) {
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     this.collisionHandle();
-}
+};
 
 /** Initialize enemy.
  * @method
@@ -66,7 +66,7 @@ Enemy.prototype.init = function() {
         var locationRange = [60, 143, 226, 309];
         return locationRange[getRandomInt(0, locationRange.length - 1)];
     }
-}
+};
 
 /** Detect collision between enemy and player.
  * @method
@@ -77,7 +77,7 @@ Enemy.prototype.collisionHandle = function() {
         score.lose();
         player.reset();
     }
-}
+};
 
 /** Player of the game. */
 var Player = function() {
@@ -100,7 +100,7 @@ Player.prototype.update = function(x, y) {
             else {this.y += y;}
         }
     }
-}
+};
 
 /** Draw player on the screen.
  * @method
@@ -108,7 +108,7 @@ Player.prototype.update = function(x, y) {
 Player.prototype.render = function() {
     this.select();
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-}
+};
 
 /** Handle keyboard control of the player.
  * @method
@@ -121,7 +121,7 @@ Player.prototype.handleInput = function(key) {
         case "right": this.update(this.moveX, 0); break;
         case "left": this.update(-this.moveX, 0); break;
     }
-}
+};
 
 /** Initialize player.
  * @method
@@ -134,7 +134,7 @@ Player.prototype.init = function() {
     this.boundaryX = 404;
     this.boundaryY = 500;
     this.reset();
-}
+};
 
 /** Reset player to start place.
  * @method
@@ -143,13 +143,13 @@ Player.prototype.reset = function() {
     var initLocation = {'x': 202, 'y': 400};
     this.x = initLocation.x;
     this.y = initLocation.y;
-}
+};
 
 /** Select different characters of player.
  * @method
  */
 Player.prototype.select = function() {
-    characters = ['images/char-boy.png',
+    var characters = ['images/char-boy.png',
         'images/char-cat-girl.png',
         'images/char-horn-girl.png',
         'images/char-pink-girl.png',
@@ -168,7 +168,7 @@ Player.prototype.select = function() {
             case 404: this.sprite = characters[4]; break;
         }
     }
-}
+};
 
 /** Score of the game. */
 var Score = function() {
@@ -186,7 +186,7 @@ Score.prototype.init = function() {
     this.scoreBoard = document.createElement("p");
     document.body.appendChild(this.scoreBoardHeader).appendChild(this.scoreBoard);
     this.render();
-}
+};
 
 /** Add 100 to score when player wins.
  * @method
@@ -194,7 +194,7 @@ Score.prototype.init = function() {
 Score.prototype.win = function() {
     this.score += 100;
     this.render();
-}
+};
 
 /** Minus 10 to score when player lose.
  * @method
@@ -202,14 +202,14 @@ Score.prototype.win = function() {
 Score.prototype.lose = function() {
     this.score -= 10;
     this.render();
-}
+};
 
 /** Draw score on the screen.
  * @method
  */
 Score.prototype.render = function() {
     this.scoreBoard.innerHTML = this.score;
-}
+};
 
 /** Add bonus point to score when player lose.
  * @method
@@ -218,7 +218,7 @@ Score.prototype.render = function() {
 Score.prototype.bonus = function(bonus) {
     this.score += bonus;
     this.render();
-}
+};
 
 /** Collectables player can get bonus. */
 var Collectable = function() {
@@ -259,7 +259,7 @@ Collectable.prototype.reset = function() {
         var y = locationRangeY[getRandomInt(0, locationRangeY.length - 1)];
         return {"x": x, "y": y};
     }
-}
+};
 
 /** Draw collectable on the screen.
  * @method
@@ -267,7 +267,7 @@ Collectable.prototype.reset = function() {
 Collectable.prototype.render = function() {
     this.collisionHandle();
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-}
+};
 
 Collectable.prototype.collisionHandle = function() {
     var collisionDist = 30;
@@ -275,7 +275,7 @@ Collectable.prototype.collisionHandle = function() {
         score.bonus(this.gem.score);
         this.reset();
     }
-}
+};
 
 // Instantiate objects.
 var allEnemies = [];
