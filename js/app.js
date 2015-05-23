@@ -11,7 +11,7 @@ var Enemy = function() {
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.init();
-}
+};
 
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
@@ -61,7 +61,7 @@ Enemy.prototype.collisionHandle = function() {
 // a handleInput() method.
 var Player = function() {
     this.init();
-}
+};
 
 Player.prototype.update = function(x, y) {
     if (x !== undefined && y !== undefined) {
@@ -131,7 +131,7 @@ Player.prototype.select = function() {
 // Score
 var Score = function() {
     this.init();
-}
+};
 
 Score.prototype.init = function() {
     this.score = 0;
@@ -145,7 +145,7 @@ Score.prototype.init = function() {
 
 Score.prototype.win = function() {
     this.score += 100;
-    this.render()
+    this.render();
 }
 
 Score.prototype.lose = function() {
@@ -154,7 +154,7 @@ Score.prototype.lose = function() {
 }
 
 Score.prototype.render = function() {
-    this.scoreBoard.innerHTML = this.score
+    this.scoreBoard.innerHTML = this.score;
 }
 
 Score.prototype.bonus = function(bonus) {
@@ -165,7 +165,7 @@ Score.prototype.bonus = function(bonus) {
 // Collectables player can get bonus
 var Collectable = function() {
     this.reset();
-}
+};
 
 Collectable.prototype.reset = function() {
     var location = randomLocation();
@@ -200,7 +200,7 @@ Collectable.prototype.render = function() {
 Collectable.prototype.collisionHandle = function() {
     var collisionDist = 30;
     if (Math.abs(this.y - player.y) <= collisionDist && Math.abs(this.x - player.x) <= collisionDist ) {
-        score.bonus(this.gem.score)
+        score.bonus(this.gem.score);
         this.reset();
     }
 }
